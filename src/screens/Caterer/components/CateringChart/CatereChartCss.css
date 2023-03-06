@@ -1,0 +1,11 @@
+/* for sales charts custom tooltip color */
+
+
+
+
+.apexcharts-tooltip {
+    background:#6A82CF!important;
+    color: #fff;
+    border: 1px solid transparent !important;
+    padding: 0px 5px;
+  }

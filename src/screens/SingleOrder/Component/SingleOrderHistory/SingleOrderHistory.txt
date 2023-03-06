@@ -1,0 +1,46 @@
+// import React from 'react'
+// import SingleOrderDataGrid from '../SingleOrderDataGrid'
+// import { SingleOrderHeader } from '../SingleOrderHeader'
+// import Box from "@mui/material/Box";
+// import CustomBreadcrumbs from '../../../../components/CustomBreadcrumbs';
+
+// export const SingleOrderHistory = () => {
+
+//     function handleClick(event) {
+//         event.preventDefault();
+//         console.info("You clicked a breadcrumb.");
+//       }
+
+      
+//     const breadcrumbsLinksDataArr = [
+//         {
+//           text: "Single Order",
+//           url: "#",
+//         },
+//         // {
+//         //   text: "Delivery Details",
+//         //   url: "#",
+//         // },
+//       ];
+//   return (
+//     <div>
+//         <Box width="100%">
+//         <Box>
+//         <CustomBreadcrumbs
+//           typographyText="Order History"
+//           breadcrumbsLinksArr={breadcrumbsLinksDataArr}
+//           clickHandler={handleClick}
+//         />
+//         </Box>
+//         <Box>
+//           <SingleOrderHeader title={"Single Order History"} hasExportButton= {true} hasHistoryButton={false} hasTextButtonTitle1={"Last Added"} hasTextButtonTitle2={"Any Status"} />
+//         </Box>
+
+//         <Box>
+//           <SingleOrderDataGrid IdSubColor={"#9EA3AE"}/>
+//         </Box>
+       
+//       </Box>
+//     </div>
+//   )
+// }

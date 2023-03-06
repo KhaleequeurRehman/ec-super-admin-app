@@ -1,0 +1,434 @@
+import React, { useState } from "react";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+// import MenuItem from '@mui/material/MenuItem';
+// import Menu from '@mui/material/Menu';
+// import MenuIcon from '@mui/icons-material/Menu';
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import SearchIcon from "@mui/icons-material/Search";
+import { BsThreeDots } from "react-icons/bs";
+import Layout from "../Layout";
+import CustomSearchInputField from "../../components/CustomSearchInputField";
+import CatererApps from "./CatererApps";
+import DriverApps from "./DriverApps";
+
+
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
+const FinancialReport = () => {
+  
+  const [value, setValue] = useState(0);
+  const [showCatererDetail, setShowCatererDetail] = useState(false);
+
+  const [searchVal, setSearchVal] = useState("");
+  // const [actionAnchorEl, setActionAnchorEl] = React.useState(null);
+  
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  // const isActionMenuOpen = Boolean(actionAnchorEl);
+
+  // const handleActionMenuClose = () => {
+  //   setActionAnchorEl(null);
+  // };
+
+  // const handleActionMenuOpen = (event) => {
+  //   setActionAnchorEl(event.currentTarget);
+  // };
+
+  // const subscriptionTableColumns = [
+  //   { field: "id", headerName: "#", width: 70 },
+  //   {
+  //     field: "caterer",
+  //     headerName: "Caterer",
+  //     width: 300,
+  //     height:70,
+  //     renderCell: (params) => {
+  //       return (
+  //         <>
+  //           <Box py="5px" sx={{display:"flex",alignItems:"center"}}>
+  //             <Box sx={{width:"48px",height:"48px",borderRadius:"6px"}}>
+  //               <img src={params.value.img} alt="dishIcon" width="100%" height="100%" />
+  //             </Box>
+  //             <Box ml="10px">
+  //               <Typography>{params.value.name}</Typography>
+  //             </Box>
+  //           </Box>
+  //         </>
+  //       );
+  //     },
+  //   },
+  //   {
+  //     field: "email",
+  //     headerName: "Email",
+  //     width: 200,
+  //   },
+  //   {
+  //     field: "address",
+  //     headerName: "Address",
+  //     width: 220,
+  //   },
+  //   // {
+  //   //   field: "subscriptionType",
+  //   //   headerName: "Subscription type",
+  //   //   width: 230,
+  //   //   renderCell: (params) => {
+  //   //     const {value} = params
+  //   //     let chipBgColor = ''
+  //   //     if(value==="Personal subscription"){
+  //   //       chipBgColor ='#7B49E5'
+  //   //     }else if(value==="Multiple subscription"){
+  //   //       chipBgColor ='#158FAD'
+  //   //     }else if(value==="Bussines subscription"){
+  //   //       chipBgColor ='#FF9933'
+  //   //     }else if(value==="Single order"){
+  //   //       chipBgColor ='#7ECC49'
+  //   //     }else if(value==="Fitness subscription"){
+  //   //       chipBgColor ='#FF8D85'
+  //   //     }
+  //   //     return (
+  //   //       <>
+  //   //         <Box>
+  //   //           <Chip label={params.value} variant="contained" sx={{background: chipBgColor,
+  //   //            borderRadius: '6px', color: '#fff'}} />
+  //   //         </Box>
+  //   //       </>
+  //   //     );
+  //   //   },
+  //   // },
+  //   {
+  //     field: "status",
+  //     headerName: "Status",
+  //     width: 120,
+  //     renderCell: (params) => {
+  //       const {value} = params
+  //       let statusBtnBgColor='',statusBtnBorderColor='',statusBtncolor=''
+  //       if(value==="Closed"){
+  //         statusBtnBgColor ='#F6F6F6'
+  //         statusBtnBorderColor='#9EA3AE'
+  //         statusBtncolor='#9EA3AE'
+  //       }else if(value==="Open"){
+  //         statusBtnBgColor='#F1FFF7'
+  //         statusBtnBorderColor='#81D9A5'
+  //         statusBtncolor='#30A15F'
+  //       }else{
+  //         statusBtnBgColor='inherit'
+  //         statusBtnBorderColor='inherit'
+  //         statusBtncolor='inherit'
+  //       }
+  //       return (
+  //         <>
+  //            <Box  sx={{border: `1px solid ${statusBtnBorderColor}`,bgcolor:statusBtnBgColor ,borderRadius: '4px', color:statusBtncolor,p:"2px 9px"}}>
+  //              {params.value}
+  //            </Box>
+  //         </>
+  //       );
+  //     },
+  //   },
+  //   {
+  //     field: "action",
+  //     headerName: "Action",
+  //     width: 100,
+  //     renderCell: (params) => {
+  //       return (
+  //         <>
+  //           <Box>
+  //             <Button sx={{minWidth:"24px",minHeight:"24px",p:"4px",color:"#42C677",textTransform:"none",p:"4px",border:"1px solid #80B3B0", borderRadius:"3px"}} variant="text" onClick={handleActionMenuOpen} >
+  //               <BsThreeDots style={{color:"#2B817B"}} />
+  //             </Button>
+  //           </Box>
+  //         </>
+  //       );
+  //     },
+  //   },
+  // ];
+
+  // const subscriptionTableRow = [
+  //   {
+  //     id: 1,
+  //     caterer: {
+  //       img:"assets/images/dish1.svg",
+  //       name:"Chef Juna Catering"
+  //     },
+  //     email: "Bairos@gmail.com",
+  //     address: "Tamworth, Long Eaton ...",
+  //     status: "Open",
+  //   },
+  //   {
+  //     id: 2,
+  //     caterer: {
+  //       img:"assets/images/dish1.svg",
+  //       name:"Chef Juna Catering"
+  //     },
+  //     email: "Bairos@gmail.com",
+  //     address: "Tamworth, Long Eaton ...",
+  //     status: "Closed",
+  //   },
+  //   {
+  //     id: 3,
+  //     caterer: {
+  //       img:"assets/images/dish1.svg",
+  //       name:"Chef Juna Catering"
+  //     },
+  //     email: "Bairos@gmail.com",
+  //     address: "Tamworth, Long Eaton ...",
+  //     status: "Open",
+  //   },
+  //   {
+  //     id: 4,
+  //     caterer: {
+  //       img:"assets/images/dish1.svg",
+  //       name:"Chef Juna Catering"
+  //     },
+  //     email: "Bairos@gmail.com",
+  //     address: "Tamworth, Long Eaton ...",
+  //     status: "Closed",
+  //   },
+  //   {
+  //     id: 5,
+  //     caterer: {
+  //       img:"assets/images/dish1.svg",
+  //       name:"Chef Juna Catering"
+  //     },
+  //     email: "Bairos@gmail.com",
+  //     address: "Tamworth, Long Eaton ...",
+  //     status: "Open",
+  //   },
+  //   {
+  //     id: 6,
+  //     caterer: {
+  //       img:"assets/images/dish1.svg",
+  //       name:"Chef Juna Catering"
+  //     },
+  //     email: "Bairos@gmail.com",
+  //     address: "Tamworth, Long Eaton ...",
+  //     status: "Open",
+  //   },
+  //   {
+  //     id: 7,
+  //     caterer: {
+  //       img:"assets/images/dish1.svg",
+  //       name:"Chef Juna Catering"
+  //     },
+  //     email: "Bairos@gmail.com",
+  //     address: "Tamworth, Long Eaton ...",
+  //     status: "Closed",
+  //   },
+  //   {
+  //     id: 8,
+  //     caterer: {
+  //       img:"assets/images/dish1.svg",
+  //       name:"Chef Juna Catering"
+  //     },
+  //     email: "Bairos@gmail.com",
+  //     address: "Tamworth, Long Eaton ...",
+  //     status: "Open",
+  //   },
+  //   {
+  //     id: 9,
+  //     caterer: {
+  //       img:"assets/images/dish1.svg",
+  //       name:"Chef Juna Catering"
+  //     },
+  //     email: "Bairos@gmail.com",
+  //     address: "Tamworth, Long Eaton ...",
+  //     status: "Closed",
+  //   },
+  // ];
+
+  // const actionMenuId = 'primary-search-account-menu-mobile';
+  // const actionMenu = (
+  //   <Menu
+  //     anchorEl={actionAnchorEl}
+  //     anchorOrigin={{
+  //       vertical: 'top',
+  //       horizontal: 'right',
+  //     }}
+  //     id={actionMenuId}
+  //     keepMounted
+  //     transformOrigin={{
+  //       vertical: 'top',
+  //       horizontal: 'right',
+  //     }}
+  //     open={isActionMenuOpen}
+  //     onClose={handleActionMenuClose}
+  //   >
+  //     <MenuItem onClick={handleActionMenuClose}>
+  //       <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+  //         <img src="assets/images/eyeIcon.svg" alt="eyeIcon" />
+  //       </IconButton>
+  //       <Typography sx={{fontSize:"14px",fontWeight:"600",color:"#1A1824"}}>View Details</Typography>
+  //     </MenuItem>
+  //     <MenuItem onClick={handleActionMenuClose}>
+  //       <IconButton
+  //         size="large"
+  //         color="inherit"
+  //       >
+  //        <img src="assets/images/messageIcon.svg" alt="messageIcon" />
+  //       </IconButton>
+  //       <Typography sx={{fontSize:"14px",fontWeight:"600",color:"#1A1824"}}>Send Message</Typography>
+  //     </MenuItem>
+  //   </Menu>
+  // );
+
+
+  return (
+    <>
+      <Layout>
+        <Box width="100%">
+          <Box sx={{my:{xs:"10px",md:"0px"}}}>
+            <CustomSearchInputField
+              id="outlined-start-adornment"
+              sx={{ m: 1, width: "32ch",margin:{xs:"8px 0px",md:"8px"} }}
+              size="small"
+              placeholder="Search"
+              value={searchVal}
+              onChange={(e) => setSearchVal(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton aria-label="toggle password visibility">
+                      <SearchIcon sx={{ color: "#9EA3AE" }} />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+              TabIndicatorProps={{
+                sx: { backgroundColor: "#2B817B" },
+              }}
+              sx={{ "& button.Mui-selected": { color: "#1A1b24" } }}
+            >
+              <Tab
+                disableRipple={true}
+                label="Caterer Apps"
+                {...a11yProps(0)}
+                sx={{
+                  marginBottom: "-20px",
+                  fontFamily: "Outfit",
+                  fontSize: "16px",
+                  color: "#9EA3AE",
+                  lineHeight: "30px",
+                  fontWeight: "600",
+                  textTransform: "none",
+                }}
+              />
+              <Tab
+                disableRipple={true}
+                label="Driver Apps"
+                {...a11yProps(1)}
+                sx={{
+                  marginBottom: "-20px",
+                  fontFamily: "Outfit",
+                  fontSize: "16px",
+                  color: "#9EA3AE",
+                  lineHeight: "30px",
+                  fontWeight: "400",
+                  textTransform: "none"
+                }}
+              />
+              <Tab
+                disableRipple={true}
+                label="Customer Apps"
+                {...a11yProps(1)}
+                sx={{
+                  marginBottom: "-20px",
+                  fontFamily: "Outfit",
+                  fontSize: "16px",
+                  color: "#9EA3AE",
+                  lineHeight: "30px",
+                  fontWeight: "400",
+                  textTransform: "none"
+                }}
+              />
+            </Tabs>
+          </Box>
+          <TabPanel value={value} index={0}>
+            <CatererApps setShowCatererDetailFunc={setShowCatererDetail} />
+            {/* <Box width="100%" mx={-2}>
+              <Box
+                width="100%"
+                border="1px solid #e1e1e6"
+                p="10px 20px"
+                borderRadius="8px"
+                minHeight="60vh"
+              >
+                <CustomDataGrid
+                  rows={subscriptionTableRow}
+                  columns={subscriptionTableColumns}
+                  disableSelectionOnClick
+                  autoHeight
+                  hideFooterPagination={true}
+                />
+                <Box sx={{
+                   margin: "20px 0",
+                     display: "flex",
+                     justifyContent: "space-between",
+                     alignItems: "center"
+                }}>
+                  <Typography sx={{color:"#9EA3AE",fontSize:"14px",fontWeight:"400"}}>
+                    Show 1-10 of 50 entries
+                  </Typography>
+                  <CustomPagination />
+                </Box>
+              </Box>
+              {actionMenu}
+            </Box> */}
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <DriverApps />
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            Customer Apps
+          </TabPanel>
+        </Box>
+      </Layout>
+    </>
+  );
+};
+
+export default FinancialReport;

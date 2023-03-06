@@ -1,0 +1,440 @@
+import React from 'react'
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+import IconButton from "@mui/material/IconButton";
+import AddIcon from '@mui/icons-material/Add';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PersonIcon from '@mui/icons-material/Person';
+import WarningIcon from '@mui/icons-material/Warning';
+// import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import SendIcon from '@mui/icons-material/Send';
+import Layout from '../Layout'
+import MessageUserInfoCard from './MessageUserInfoCard';
+import TextInputField from '../../components/TextInputField';
+import CustomTextarea from '../../components/CustomTextarea';
+import CustomCheckbox from '../../components/CustomCheckbox';
+import CustomizedModal from '../../components/CustomizedModal';
+import EmailForm from './EmailForm';
+
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`vertical-tabpanel-${index}`}
+        aria-labelledby={`vertical-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box sx={{ p: 1 }}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+  
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+  };
+  
+  function a11yProps(index) {
+    return {
+      id: `vertical-tab-${index}`,
+      'aria-controls': `vertical-tabpanel-${index}`,
+    };
+  }
+  
+
+const Email = () => {
+
+    const [isEmailFormShown, setIsEmailFormShown] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
+    const [open2, setOpen2] = React.useState(false);
+    const [value, setValue] = React.useState(0);
+    const [email, setEmail] = React.useState("");
+    const [showTextarea, setShowTextarea] = React.useState(false);
+
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+
+    const handleClickOpen = () => {
+        setOpen(true);
+      };
+
+    const handleClose = () => {
+        setOpen(false);
+      };
+
+    const handleClose2 = () => {
+        setOpen2(false);
+      };
+
+    const StyledTabs = styled(Tabs)({
+        // borderBottom: '1px solid #e8e8e8',
+        borderBottom: 'none',
+        '& .MuiTabs-indicator': {
+        //   backgroundColor: '#1890ff',
+          backgroundColor: 'unset',
+        },
+      });
+      
+      const StyledTab = styled((props) => <Tab disableRipple {...props} />)(({ theme }) => ({
+        textTransform: 'none',
+        minWidth: 0,
+        [theme.breakpoints.up('sm')]: {
+          minWidth: 0,
+        },
+        minHeight:"50px",
+        borderRadius:"4px",
+        fontWeight: theme.typography.fontWeightRegular,
+        marginRight: theme.spacing(1),
+        justifyContent:"flex-start",
+        // color: 'rgba(0, 0, 0, 0.85)',
+        color: '#9EA3AE',
+        // fontFamily: [
+        //   '-apple-system',
+        //   'BlinkMacSystemFont',
+        //   '"Segoe UI"',
+        //   'Roboto',
+        //   '"Helvetica Neue"',
+        //   'Arial',
+        //   'sans-serif',
+        //   '"Apple Color Emoji"',
+        //   '"Segoe UI Emoji"',
+        //   '"Segoe UI Symbol"',
+        // ].join(','),
+        '&:hover': {
+        //   color: '#40a9ff',
+          color: '#9EA3AE',
+          opacity: 1,
+        },
+        '&.Mui-selected': {
+        //   color: '#1890ff',
+          color: '#9EA3AE',
+          fontWeight: theme.typography.fontWeightMedium,
+        //   background:'#2B817B',
+        },
+        '&.Mui-focusVisible': {
+          backgroundColor: '#d1eaff',
+        },
+      }));
+      
+
+    const MessageUserInfoCardArr = [
+        {
+            imageSrc:"assets/images/userWithiMacIconOrange.png", 
+            name:"Bank Syaiba", 
+            email:"<Bank@Syaiba.com>", 
+            duartion:"Yesterday", 
+            description:"I don’t know the function of this page, can you help ..."
+        },
+        {
+            imageSrc:"assets/images/userWithiMacIconPurple.png", 
+            name:"Bank Syaiba", 
+            email:"<Bank@Syaiba.com>", 
+            duartion:"2 Day ago", 
+            description:"I don’t know the function of this page, can you help ..."
+        },
+        {
+            imageSrc:"assets/images/userWithiMacIconBlue.png", 
+            name:"Bank Syaiba", 
+            email:"<Bank@Syaiba.com>", 
+            duartion:"2 Day ago", 
+            description:"I don’t know the function of this page, can you help ..."
+        },
+        {
+            imageSrc:"assets/images/userWithiMacIconGray.png", 
+            name:"Bank Syaiba", 
+            email:"<Bank@Syaiba.com>", 
+            duartion:"2 Day ago", 
+            description:"I don’t know the function of this page, can you help ..."
+        },
+        {
+            imageSrc:"assets/images/userWithiMacIconGreen.png", 
+            name:"Bank Syaiba", 
+            email:"<Bank@Syaiba.com>", 
+            duartion:"2 Day ago", 
+            description:"I don’t know the function of this page, can you help ..."
+        },
+        {
+            imageSrc:"assets/images/userWithiMacIconYellow.png", 
+            name:"Bank Syaiba", 
+            email:"<Bank@Syaiba.com>", 
+            duartion:"2 Day ago", 
+            description:"I don’t know the function of this page, can you help ..."
+        },
+        {
+            imageSrc:"assets/images/userWithiMacIconOrange.png", 
+            name:"Bank Syaiba", 
+            email:"<Bank@Syaiba.com>", 
+            duartion:"2 Day ago", 
+            description:"I don’t know the function of this page, can you help ..."
+        },
+    ]
+
+    const moreEditTextIconsArr = [
+        {
+            imageSrc:"assets/moreEditTextIcons/textAlignLeft.png",
+          },
+          {
+            imageSrc:"assets/moreEditTextIcons/textAlignCenter.png",
+          },
+          {
+            imageSrc:"assets/moreEditTextIcons/textItalicIcon.png",
+          },
+          {
+            imageSrc:"assets/moreEditTextIcons/textAlignRight.png",
+          },
+          {
+            imageSrc:"assets/moreEditTextIcons/textIcon.png",
+          },
+          {
+            imageSrc:"assets/moreEditTextIcons/textBoldIcon.png",
+          },
+          {
+            imageSrc:"assets/moreEditTextIcons/textUnderlineIcon.png",
+          },
+          {
+            imageSrc:"assets/moreEditTextIcons/pharagraphSpacingIcon.png",
+          },
+          {
+            imageSrc:"assets/moreEditTextIcons/linkIcon.png",
+          },
+    ]
+
+
+  return (
+    <>
+        <Layout>
+            <Box width="100%">
+                {/* <Grid container gap={2} sx={{border:"1px solid #e1e1e6"}}> */}
+                <Grid container gap={2} justifyContent="space-between">
+                    {/* <Grid item xs={12} sm={2.2} sx={{minHeight:"80vh",border:"1px solid #e1e1e6"}}> */}
+                    <Grid item xs={12} md={2.2} sx={{minHeight:"80vh"}}>
+                        <Box sx={{height:"auto"}}>
+                            <Box sx={{width:"100%",mb:"10px"}}>
+                                <Button variant="contained" disableRipple sx={{width:"100%",borderColor:"unset",bgcolor:"#2B817B",fontWeight:"600",fontSize:"14px",colro:"#F6F6F6",p:"10px 16px",minWidth:"127px",'&:hover':{bgcolor:"#2B817B",borderColor:"unset"}}}
+                                onClick={handleClickOpen && handleClickOpen}
+                                >Compose</Button>
+                            </Box>
+                            <StyledTabs 
+                            value={value} 
+                            onChange={handleChange} 
+                            aria-label="ant example"
+                            orientation="vertical"
+                            sx={{minHeight:"100%",maxWidth:"100%",width:"100%"}}>
+                                {/* <StyledTab label="Compose" {...a11yProps(0)} /> */}
+                                <StyledTab label="Inbox" {...a11yProps(0)} icon={<img src="assets/emailPageImages/inboxIcon.svg" alt="moreIcon" />} iconPosition="start"  onClick={()=> setIsEmailFormShown(false)}/>
+                                <StyledTab label="Starred" {...a11yProps(1)} icon={<img src="assets/emailPageImages/starred.svg" alt="moreIcon" />} iconPosition="start" onClick={()=> setIsEmailFormShown(false)}/>
+                                <StyledTab label="Sent" {...a11yProps(2)} icon={<img src="assets/emailPageImages/sentIcon.svg" alt="moreIcon" />} iconPosition="start" onClick={()=> setIsEmailFormShown(false)}/>
+                                <StyledTab label="Important" {...a11yProps(3)} icon={<img src="assets/emailPageImages/importantMessageIcon.svg" alt="moreIcon" />} iconPosition="start" onClick={()=> setIsEmailFormShown(false)}/>
+                                <StyledTab label="Trash" {...a11yProps(4)} icon={<img src="assets/emailPageImages/trashIcon.svg" alt="moreIcon" />} iconPosition="start" onClick={()=> setIsEmailFormShown(false)}/>
+                            </StyledTabs>
+                            <Box sx={{my:"5px",p:"14px 0px 0px 16px"}}>
+                                <Typography sx={{fontSize:{xs:"13px",md:"14px"},fontWeight:"500",color:"#545359"}}>Label</Typography>
+                                {
+                                [
+                                    {label:"Marketing",color:"#f882ad"},
+                                    {label:"Developer",color:"#f882ad"},
+                                    {label:"Customer",color:"#82CDF8"},
+                                    {label:"Caterer",color:"#A182F8"},
+                                    {label:"Driver",color:"#70BDD7"},
+                                ].map((item,index)=>(
+                                    <Box sx={{my:"5px"}}>
+                                        <Box sx={{width:"100%",display:"flex",flexWrap:"wrap",alignItems:"center"}}>
+                                        <CustomCheckbox color={item?.color} />
+                                        <Typography sx={{fontSize:{xs:"13px",md:"14px"},fontWeight:"500",color:"#545359",ml:"3px"}}>{item?.label}</Typography>
+                                        </Box>
+                                    </Box>
+                                    ))
+                                }
+                                <Box sx={{margin: "20px 0px 0px 20px"}}>
+                                    <Box sx={{width:"100%",display:"flex",flexWrap:"wrap",alignItems:"center"}}>
+                                    <AddIcon sx={{color:"#6A82CF"}}/>
+                                    <Typography sx={{fontSize:{xs:"13px",md:"16px"},fontWeight:"500",color:"#6A82CF",ml:"3px"}}>Add Label</Typography>
+                                    </Box>
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Grid>
+                    {/* <Grid item xs={12} sm={9.5} sx={{minHeight:"60vh",border:"1px solid #e1e1e6"}}> */}
+                    <Grid item xs={12} md={9.5} sx={{minHeight:"60vh"}}>
+                            <TabPanel value={value} index={0}>
+                            {
+                            isEmailFormShown? <>
+                            <EmailForm handleCloseModal={handleClose2} handleOpenModal={()=>{setOpen2(true)}} />
+                            </> 
+                            : 
+                            <>
+                            <Grid container gap={1} justifyContent="space-between">
+                                    <Grid item xs={5} sm={5}>
+                                        {
+                                            MessageUserInfoCardArr && MessageUserInfoCardArr.map((currItem,index)=> (
+                                                    index===0? (
+                                                        <Box sx={{mb:"15px"}}>
+                                                            <MessageUserInfoCard 
+                                                            imageSrc={currItem?.imageSrc} 
+                                                            name={currItem?.name} 
+                                                            email={currItem?.email} 
+                                                            duartion={currItem?.duartion} 
+                                                            description={currItem?.description}
+                                                            durationSx={{color:"#9EA3AE"}}
+                                                            />
+                                                        </Box>
+                                                    ): 
+                                                    (
+                                                        <Box sx={{mb:"15px"}}>
+                                                            <MessageUserInfoCard 
+                                                            imageSrc={currItem?.imageSrc} 
+                                                            name={currItem?.name} 
+                                                            email={currItem?.email} 
+                                                            duartion={currItem?.duartion} 
+                                                            description={currItem?.description}
+                                                            cardSx={{borderColor:"#559A95"}}
+                                                            />
+                                                        </Box>
+                                                    )
+                                            ))
+                                        }
+                                    </Grid>
+                                    <Grid item xs={6.3} sm={6.6} sx={{border:"1px solid #e1e1e6",borderRadius:"8px"}}>
+                                        <Box sx={{mb:"15px",display:"flex",flexDirection:"column",justifyContent:"space-between",height:"100%"}}>
+                                            <Box>
+                                                <MessageUserInfoCard 
+                                                imageSrc="assets/images/userWithiMacIconRed.png" 
+                                                name="Chef Juna Food" 
+                                                email="<Bank@Syaiba.com>" 
+                                                duartion="10 : 01 Am ( 4 hours ago )" 
+                                                durationSx={{color:"#9EA3AE"}}
+                                                />
+                                            </Box>
+                                            <Box sx={{p:"3px 5px"}}>
+                                                {
+                                                    showTextarea && (
+                                                        <CustomTextarea
+                                                        multiline
+                                                        rows={4}
+                                                        placeholder="Type some message"
+                                                        />
+                                                    )
+                                                }
+                                               
+                                                <Box sx={{display:"flex",flexWrap:"wrap",justifyContent:"space-between",alignItems:"center"}}>
+                                                    {
+                                                        showTextarea? <>
+                                                        <Box sx={{display:"flex",alignItems:"center",mr:"20px",p:"10px",mb:"15px"}}>
+                                                            {
+                                                            moreEditTextIconsArr && moreEditTextIconsArr.map((item,index)=> (
+                                                                <Box sx={{width:"16px",height:"16px",mx:"5px",my:"3px"}}>
+                                                                    <img src={item.imageSrc} alt="moreIcon"
+                                                                    style={{width:"100%",height:"100%"}} 
+                                                                    />
+                                                                </Box>
+                                                            ))
+                                                            }
+                                                        </Box>
+                                                        </> : <>
+                                                        <Box sx={{width:"32px",height:"32px",border:"1px solid #F6F6F6",mr:"5px",borderRadius:"50%",p:"4px"}}>
+                                                            <AddIcon sx={{color:"#2B817B",fontSize:"24px"}} onClick={()=> setShowTextarea(true)}/>
+                                                        </Box>
+                                                        <Box sx={{flexGrow:1}}>
+                                                            <TextInputField 
+                                                            name='message' 
+                                                            value={email} 
+                                                            onChangeHandler={(e)=> setEmail(e.target.value)} 
+                                                            placeholder='Type some message'
+                                                            />
+                                                        </Box>
+                                                        </>
+                                                    }
+                                                    <Box sx={{ml:"10px"}}>
+                                                        <Button variant="contained" disableRipple sx={{borderColor:"unset",bgcolor:"#2B817B",fontWeight:"500",fontSize:"14px",minWidth:"auto",'&:hover':{bgcolor:"#2B817B",borderColor:"unset"}}} endIcon={<img src="assets/images/messageSendIcon.svg" alt="messageSendIcon"  style={{width:"auto",height:"auto"}}/>}  onClick={()=> setShowTextarea(false)}>Send</Button>
+                                                    </Box>
+                                                </Box>
+                                            </Box>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+                            </>
+                        }
+                            </TabPanel>
+                            <TabPanel value={value} index={1}>
+                                {/* <EmailForm handleCloseModal={handleClose2} handleOpenModal={()=>{setOpen2(true)}} /> */}
+                                Starred
+                            </TabPanel>
+                            <TabPanel value={value} index={2}>
+                                Sent
+                            </TabPanel>
+                            <TabPanel value={value} index={3}>
+                                Important
+                            </TabPanel>
+                            <TabPanel value={value} index={4}>
+                                Trash
+                            </TabPanel>
+                    </Grid>
+                </Grid>
+                <CustomizedModal
+                title="Compose"
+                aria-labelledby="customized-dialog-title"
+                open={open}
+                handleClose={handleClose}
+                isActionShown={false}
+                >
+                    <Box sx={{my:"20px",minWidth:{xs:"310px",sm:"400px",md:"500px"},mb:"20px"}}>
+                        <Box sx={{display:"flex",flexWrap:"wrap",justifyContent:"space-between",p:"16px 16px 32px 16px"}}>
+                            <Box sx={{border:"1px solid #E1E1E6",borderRadius:"8px",p:"16px 16px 32px 16px",textAlign:"center",width:{xs:"45%"} }}>
+                                <IconButton sx={{backgroundColor:"#E8F7F6"}} onClick={()=> setIsEmailFormShown(true)}>
+                                    <PersonIcon sx={{ color: "#2B817B",fontSize:{xs:"32px",md:"48px"} }} />
+                                </IconButton>
+                                <Typography sx={{fontSize: { xs: "13px", md: "16px" },fontWeight: "500",color: "#1A1824",}}>Spesific People</Typography>  
+                            </Box>
+                            <Box sx={{border:"1px solid #E1E1E6",borderRadius:"8px",p:"16px 16px 32px 16px",textAlign:"center",width:{xs:"45%"} }}>
+                                <IconButton sx={{backgroundColor:"#E8F7F6"}} onClick={()=> setIsEmailFormShown(true)}>
+                                    <PersonIcon sx={{ color: "#2B817B",fontSize:{xs:"32px",md:"48px"} }} />
+                                </IconButton>
+                                <Typography sx={{fontSize: { xs: "13px", md: "16px" },fontWeight: "500",color: "#1A1824",}}>Spesific People</Typography>  
+                            </Box>
+                        </Box>
+                    </Box>
+                </CustomizedModal>
+
+                <CustomizedModal
+                title="Compose"
+                aria-labelledby="customized-dialog-title"
+                open={open2}
+                handleClose={handleClose2}
+                actionBtnsText={['Discard','Yes, sure']}
+                isHeaderShown={false}
+                >
+                    <Box sx={{my:"20px",minWidth:{xs:"310px",sm:"400px"}}}>
+                        <Box sx={{display:"flex",flexWrap:"wrap",justifyContent:"center",alignItems:"center"}}>
+                            <Box sx={{borderRadius:"8px",p:"16px 16px 32px 16px",textAlign:"center"}}>
+                                <IconButton sx={{backgroundColor:"#FEF9E8"}}>
+                                    <WarningIcon sx={{ color: "yellow",fontSize:{xs:"32px",md:"48px"} }} />
+                                </IconButton>
+                                <Typography sx={{fontSize: { xs: "13px", md: "16px" },fontWeight: "600",color: "#1A1824",}}>Are you sure ?</Typography>  
+                                <Typography sx={{fontSize: { xs: "13px", md: "14px" },fontWeight: "400",color: "#545359",}}>You will not be able to recover this module</Typography>  
+                            </Box>
+                        </Box>
+                    </Box>
+                </CustomizedModal>
+            </Box>
+        </Layout>
+    </>
+  )
+}
+
+export default Email
